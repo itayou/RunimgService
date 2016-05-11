@@ -19,7 +19,19 @@
 		663511391CDA264300F0318F /* RunimgService.m in Sources */ = {isa = PBXBuildFile; fileRef = 663511311CDA264300F0318F /* RunimgService.m */; };
 		6635113A1CDA264300F0318F /* UpdateStanza.m in Sources */ = {isa = PBXBuildFile; fileRef = 663511331CDA264300F0318F /* UpdateStanza.m */; };
 		6635113B1CDA264300F0318F /* UrlCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 663511351CDA264300F0318F /* UrlCreator.m */; };
+		66E2B7901CE334AB00BF243E /* RunimgServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E2B78F1CE334AB00BF243E /* RunimgServiceTests.m */; };
+		66E2B7981CE334D300BF243E /* ImageOperatorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E2B7971CE334D300BF243E /* ImageOperatorTest.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		66E2B7921CE334AB00BF243E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 663511061CDA25D700F0318F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6635110D1CDA25D700F0318F;
+			remoteInfo = RunimgService;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		6635110E1CDA25D700F0318F /* RunimgService.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RunimgService.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -45,10 +57,21 @@
 		663511331CDA264300F0318F /* UpdateStanza.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateStanza.m; sourceTree = "<group>"; };
 		663511341CDA264300F0318F /* UrlCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UrlCreator.h; sourceTree = "<group>"; };
 		663511351CDA264300F0318F /* UrlCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UrlCreator.m; sourceTree = "<group>"; };
+		66E2B78D1CE334AB00BF243E /* RunimgServiceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RunimgServiceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		66E2B78F1CE334AB00BF243E /* RunimgServiceTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RunimgServiceTests.m; sourceTree = "<group>"; };
+		66E2B7911CE334AB00BF243E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		66E2B7971CE334D300BF243E /* ImageOperatorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageOperatorTest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		6635110B1CDA25D700F0318F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		66E2B78A1CE334AB00BF243E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -63,6 +86,7 @@
 			children = (
 				663511281CDA264300F0318F /* Classes */,
 				663511101CDA25D700F0318F /* RunimgService */,
+				66E2B78E1CE334AB00BF243E /* RunimgServiceTests */,
 				6635110F1CDA25D700F0318F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -71,6 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				6635110E1CDA25D700F0318F /* RunimgService.app */,
+				66E2B78D1CE334AB00BF243E /* RunimgServiceTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -119,6 +144,16 @@
 			path = Classes;
 			sourceTree = "<group>";
 		};
+		66E2B78E1CE334AB00BF243E /* RunimgServiceTests */ = {
+			isa = PBXGroup;
+			children = (
+				66E2B78F1CE334AB00BF243E /* RunimgServiceTests.m */,
+				66E2B7911CE334AB00BF243E /* Info.plist */,
+				66E2B7971CE334D300BF243E /* ImageOperatorTest.m */,
+			);
+			path = RunimgServiceTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -139,6 +174,24 @@
 			productReference = 6635110E1CDA25D700F0318F /* RunimgService.app */;
 			productType = "com.apple.product-type.application";
 		};
+		66E2B78C1CE334AB00BF243E /* RunimgServiceTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 66E2B7961CE334AB00BF243E /* Build configuration list for PBXNativeTarget "RunimgServiceTests" */;
+			buildPhases = (
+				66E2B7891CE334AB00BF243E /* Sources */,
+				66E2B78A1CE334AB00BF243E /* Frameworks */,
+				66E2B78B1CE334AB00BF243E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				66E2B7931CE334AB00BF243E /* PBXTargetDependency */,
+			);
+			name = RunimgServiceTests;
+			productName = RunimgServiceTests;
+			productReference = 66E2B78D1CE334AB00BF243E /* RunimgServiceTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -150,6 +203,10 @@
 				TargetAttributes = {
 					6635110D1CDA25D700F0318F = {
 						CreatedOnToolsVersion = 7.2;
+					};
+					66E2B78C1CE334AB00BF243E = {
+						CreatedOnToolsVersion = 7.2;
+						TestTargetID = 6635110D1CDA25D700F0318F;
 					};
 				};
 			};
@@ -167,6 +224,7 @@
 			projectRoot = "";
 			targets = (
 				6635110D1CDA25D700F0318F /* RunimgService */,
+				66E2B78C1CE334AB00BF243E /* RunimgServiceTests */,
 			);
 		};
 /* End PBXProject section */
@@ -179,6 +237,13 @@
 				663511211CDA25D700F0318F /* LaunchScreen.storyboard in Resources */,
 				6635111E1CDA25D700F0318F /* Assets.xcassets in Resources */,
 				6635111C1CDA25D700F0318F /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		66E2B78B1CE334AB00BF243E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,7 +266,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		66E2B7891CE334AB00BF243E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				66E2B7901CE334AB00BF243E /* RunimgServiceTests.m in Sources */,
+				66E2B7981CE334D300BF243E /* ImageOperatorTest.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		66E2B7931CE334AB00BF243E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6635110D1CDA25D700F0318F /* RunimgService */;
+			targetProxy = 66E2B7921CE334AB00BF243E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		6635111A1CDA25D700F0318F /* Main.storyboard */ = {
@@ -327,6 +409,30 @@
 			};
 			name = Release;
 		};
+		66E2B7941CE334AB00BF243E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = RunimgServiceTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.godteam.RunimgServiceTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RunimgService.app/RunimgService";
+			};
+			name = Debug;
+		};
+		66E2B7951CE334AB00BF243E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = RunimgServiceTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.godteam.RunimgServiceTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RunimgService.app/RunimgService";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -344,6 +450,15 @@
 			buildConfigurations = (
 				663511261CDA25D700F0318F /* Debug */,
 				663511271CDA25D700F0318F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		66E2B7961CE334AB00BF243E /* Build configuration list for PBXNativeTarget "RunimgServiceTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				66E2B7941CE334AB00BF243E /* Debug */,
+				66E2B7951CE334AB00BF243E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};

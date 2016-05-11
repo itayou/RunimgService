@@ -58,8 +58,8 @@ typedef NS_ENUM(NSInteger,ClipperType) {
 };
 
 typedef NS_ENUM(NSInteger,ClipperDirection) {
-    CLIPPER_X,
-    CLIPPER_Y
+    CLIPPER_X, // X轴切割
+    CLIPPER_Y  // Y轴切割
 };
 
 typedef NS_ENUM(NSInteger,ProgressiveType){

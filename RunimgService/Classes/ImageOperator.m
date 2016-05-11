@@ -62,7 +62,7 @@
         NSString *result = [NSString stringWithFormat:@"{%@}",parament];
         return result;
     }
-    return @"";
+    return nil;
 }
 
 /*
@@ -143,7 +143,7 @@
         NSString *directionX = direction == CLIPPER_X ?@"x":@"y";
         _ic = [NSString stringWithFormat:@"%d%@-%d",chunk,directionX,index];
     }
-    return YES;
+    return _ic != nil;
 }
 
 /*
