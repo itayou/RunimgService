@@ -7,6 +7,7 @@
 //
 
 #import "Record.h"
+#import "NSString+Runimg.h"
 
 @implementation Record
 
@@ -15,7 +16,7 @@
     if(self) {
         self.date = [NSString stringWithFormat:@"%@",dic[@"date"]];
         self.timestamp = [NSString stringWithFormat:@"%@",dic[@"timestamp"]];
-        self.url = [NSString stringWithFormat:@"%@",dic[@"url"]];
+        self.url = [[NSString stringWithFormat:@"%@",dic[@"url"]] urlDecode];
     }
     return self;
 }

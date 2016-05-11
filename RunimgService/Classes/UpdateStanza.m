@@ -16,7 +16,7 @@
     if(self) {
         NSString *status = dic[@"status"];
         self.status = @(status.integerValue);
-        NSArray *dics = dic[@"record"];
+        NSArray *dics = dic[@"records"];
         NSMutableArray *records = [[NSMutableArray alloc] initWithCapacity:1];
         for(NSDictionary *tmp in dics) {
             Record *record = [[Record alloc] initWithDic:tmp];
