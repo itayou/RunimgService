@@ -31,8 +31,8 @@
 - (NSString *)toUrlString;
 
 /*
- * @startTime 开始时间戳
- * @endTime 结束时间戳
+ * @startTime 开始时间戳 到秒
+ * @endTime 结束时间戳 到秒
  */
-- (BOOL)setRecordIntervalStartTime:(NSString *)startTime endTime:(NSString *)endTime;
+- (BOOL)setRecordIntervalStartTime:(long)startTime endTime:(long)endTime;
 @end

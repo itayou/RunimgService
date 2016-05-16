@@ -52,8 +52,7 @@
     [imgOpt setImageZoomWidth:1024 height:768 process:YES];
     NSLog(@"%@",[imgOpt toString]);
     UrlCreator *urlCreator = [[UrlCreator alloc] initWithTokenId:@"123456789ABCDEF0" tokenKey:@"0123456789ABCDEF" imageType:TYPE_4D expired:3600 imageOperator:imgOpt];
-    NSLog(@"URL:\n%@",[urlCreator toUrlString]);
-    [[RunimgService sharedInstance] getImageUrlWithUrlCreator:urlCreator successed:^(NSObject *object) {
+    [[RunimgService sharedInstance] getImageUrlWithBaseUrl:BASE_URL urlCreator:urlCreator successed:^(NSObject *object) {
         [self downloagImage:(UpdateStanza *)object];
     } failed:^(NSObject *object, NSError *error) {
         

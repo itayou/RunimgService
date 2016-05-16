@@ -182,4 +182,12 @@
     XCTAssertTrue([self.imageOperator setImageFormat:FORMAT_WEBP]);
     XCTAssertTrue([self.imageOperator setImageFormat:FORMAT_BMP]);
 }
+
+- (void)test016Contrast {
+    XCTAssertFalse([self.imageOperator setImageContrast:-101]);
+    XCTAssertFalse([self.imageOperator setImageContrast:101]);
+    XCTAssertTrue([self.imageOperator setImageContrast:-100]);
+    XCTAssertTrue([self.imageOperator setImageContrast:0]);
+    XCTAssertTrue([self.imageOperator setImageContrast:100]);
+}
 @end

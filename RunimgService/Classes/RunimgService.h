@@ -16,13 +16,14 @@
 
 + (instancetype)sharedInstance;
 
-/* 1.0.2
+/* 
  * 通过图片操作参数获取图片地址
  * @urlCreator 请求的UrlCreator对象
  * @success 返回一个UpdateStanza对象
  * @failed 返回一个错误信息
  */
-- (void)getImageUrlWithUrlCreator:(UrlCreator *)urlCreator
+- (void)getImageUrlWithBaseUrl:(NSString *)baseUrl
+                    urlCreator:(UrlCreator *)urlCreator
                         successed:(Successed)successed
                            failed:(Failed)failed;
 

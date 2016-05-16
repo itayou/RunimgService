@@ -12,14 +12,15 @@
 @interface UrlCreator ()
 @property(nonatomic,strong)NSString *tokenId;
 @property(nonatomic,strong)NSString *tokenKey;
+@property(nonatomic,strong)NSString *img_type;
 @property(nonatomic,assign)ImageType imageType;
 @property(nonatomic,assign)NSInteger expired;
-@property(nonatomic,strong)ImageOperator *imageOperator;
 @property(nonatomic,strong)NSString *timestamp;
-@property(nonatomic,strong)NSString *startTime;
-@property(nonatomic,strong)NSString *endTime;
-@property(nonatomic,strong)NSString *imageopt;
-@property(nonatomic,strong)NSString *recInv;
+@property(nonatomic,strong)NSString *img_opt;
+@property(nonatomic,strong)ImageOperator *imageOperator;
+@property(nonatomic,strong)NSString *rec_inv;
+@property(nonatomic,strong)NSNumber *startTime;
+@property(nonatomic,strong)NSNumber *endTime;
 @end
 
 @implementation UrlCreator
@@ -42,9 +43,10 @@
         self.tokenId = tokenId;
         self.tokenKey = tokenKey;
         self.imageType = imageType;
-        self.expired = expired;
+        self.expired = expired <= 0?3600:expired;
         self.imageOperator = imageOperator;
-        self.imageopt = [self.imageOperator toString];
+        self.img_opt = [self.imageOperator toString];
+        self.img_type = [self conversionImageType];
         self.timestamp = [NSString stringWithFormat:@"%.0f",[[NSDate date] timeIntervalSince1970]];
     }
     return self;
@@ -57,66 +59,40 @@
 - (NSString *)toUrlString {
     NSMutableString *content = [[NSMutableString alloc] init];
     [content appendFormat:@"%@=%@",@"expired",@(_expired)];
-    if(_imageopt) {
-        [content appendFormat:@"&%@=%@",@"img_opt",[[_imageopt base64Encode] urlEncode]];
+    if(_img_opt) {
+        [content appendFormat:@"&%@=%@",@"img_opt",[[_img_opt base64Encode] urlEncode]];
     }
-    [content appendFormat:@"&%@=%@",@"img_type",[[self conversionImageType] urlEncode]];
-    if(_recInv) {
-         [content appendFormat:@"&%@=%@",@"rec_inv",[[_recInv base64Encode] urlEncode]];
+    [content appendFormat:@"&%@=%@",@"img_type",[_img_type urlEncode]];
+    if(_rec_inv) {
+         [content appendFormat:@"&%@=%@",@"rec_inv",[[_rec_inv base64Encode] urlEncode]];
     }
     [content appendFormat:@"&%@=%@",@"signature",[[self signature] urlEncode]];
     [content appendFormat:@"&%@=%@",@"timestamp",[_timestamp urlEncode]];
     [content appendFormat:@"&%@=%@",@"token_id", [_tokenId urlEncode]];
     [content appendFormat:@"&%@=%@",@"version",[@"1.0" urlEncode]];
-     NSString *url = [NSString stringWithFormat:@"%@%@",BASE_URL,content];
-    return url;
+    return [content copy];
 }
 
 /*
  * @startTime 开始时间
  * @endTime 结束时间
  */
-- (BOOL)setRecordIntervalStartTime:(NSString *)startTime endTime:(NSString *)endTime {
-    if(startTime) {
-        if(endTime) {
-            if(endTime.longLongValue > startTime.longLongValue) {
-                _startTime = startTime;
-                _endTime = endTime;
-                return YES;
-            }
-        }else {
-            _startTime = startTime;
-            _endTime = endTime;
-            return YES;
-        }
-        _recInv = [self getRecInterval];
-    }
-    return NO;
-}
-
-- (NSString *)getRecInterval {
-    long long start = 0;
-    long long end = 0;
-    if(_startTime) {
-        start = _startTime.longLongValue;
-        if(_endTime) {
-            end = _endTime.longLongValue;
-        }
-        NSString *recIntverval = [NSString stringWithFormat:@"{\"st\":\"%lld\",\"et\":\"%lld\"}",start,end];
-        return recIntverval;
-    }
-    return nil;
+- (BOOL)setRecordIntervalStartTime:(long)startTime endTime:(long)endTime {
+    _startTime = @(startTime);
+    _endTime = @(endTime);
+    _rec_inv = [NSString stringWithFormat:@"{\"st\":\"%@\",\"et\":\"%@\"}",_startTime,_endTime];
+    return YES;
 }
 
 - (NSString *)signature {
     NSMutableString *content = [[NSMutableString alloc] init];
     [content appendFormat:@"%@=%@",@"expired",@(_expired)];
-    if(_imageopt) {
-        [content appendFormat:@"&%@=%@",@"img_opt",[_imageopt base64Encode]];
+    if(_img_opt) {
+        [content appendFormat:@"&%@=%@",@"img_opt",[_img_opt base64Encode]];
     }
-    [content appendFormat:@"&%@=%@",@"img_type",[self conversionImageType]];
-    if(_recInv) {
-        [content appendFormat:@"&%@=%@",@"rec_inv",[_recInv base64Encode]];
+    [content appendFormat:@"&%@=%@",@"img_type",_img_type];
+    if(_rec_inv) {
+        [content appendFormat:@"&%@=%@",@"rec_inv",[_rec_inv base64Encode]];
     }
     [content appendFormat:@"&%@=%@",@"timestamp",_timestamp];
     [content appendFormat:@"&%@=%@",@"token_id",_tokenId];
@@ -126,8 +102,7 @@
 }
 
 - (NSString *)conversionImageType {
-    //1d_0_0 模式
-    NSString *type = @"";
+    NSString *type = @"2d";
     switch (self.imageType) {
         case TYPE_1D:
             type = @"1d";
@@ -197,6 +172,12 @@
             break;
         case TYPE_4D_3_3:
             type = @"4d_3_3";
+            break;
+        case TYPE_HI_RES_800:
+            type = @"hi_res_800";
+            break;
+        case TYPE_HI_RES_5000:
+            type = @"hi_res_5000";
             break;
         default:
             type = @"2d";

@@ -82,6 +82,11 @@
 - (BOOL)setImageBrightness:(int)brightness;
 
 /*
+ * 对比度 参数:d [－100,100]
+ */
+- (BOOL)setImageContrast:(int)contrast;
+
+/*
  * 相对图片质量 参数q: [1,100]
  */
 - (BOOL)setJPGImageRelationQuality:(int)quality;
@@ -101,4 +106,9 @@
  * 图片格式  参数format: @ImageFormat
  */
 - (BOOL)setImageFormat:(ImageFormat)foramt;
+
+/*
+ * 重置设置项
+ */
+- (void)reset;
 @end

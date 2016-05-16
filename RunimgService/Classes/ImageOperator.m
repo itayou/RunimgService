@@ -24,6 +24,7 @@
 @property(nonatomic,strong)NSNumber *sh;
 @property(nonatomic,strong)NSString *bl;
 @property(nonatomic,strong)NSNumber *b;
+@property(nonatomic,strong)NSNumber *d;
 @property(nonatomic,strong)NSNumber *q;
 @property(nonatomic,strong)NSNumber *Q;
 @property(nonatomic,strong)NSNumber *pr;
@@ -36,9 +37,30 @@
 - (instancetype)init {
     self = [super init];
     if(self) {
-        
+        [self reset];
     }
     return self;
+}
+
+- (void)reset {
+    _w = nil;
+    _h = nil;
+    _l = nil;
+    _e = nil;
+    _p = nil;
+    _rc = nil;
+    _ci = nil;
+    _ic = nil;
+    _a = nil;
+    _r = nil;
+    _sh = nil;
+    _bl = nil;
+    _b = nil;
+    _d = nil;
+    _q = nil;
+    _Q = nil;
+    _pr = nil;
+    _format = @"jpg";
 }
 
 /*
@@ -198,6 +220,16 @@
         _b = @(brightness);
     }
     return _b != nil;
+}
+
+/*
+ * 对比度 参数:d [－100,100]
+ */
+- (BOOL)setImageContrast:(int)contrast {
+    if([self checkValid:contrast min:-100 max:100]) {
+        _d = @(contrast);
+    }
+    return _d != nil;
 }
 
 /*

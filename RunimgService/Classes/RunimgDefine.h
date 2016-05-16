@@ -38,7 +38,9 @@ typedef NS_ENUM(NSInteger,ImageType) {
     TYPE_4D_3_0,
     TYPE_4D_3_1,
     TYPE_4D_3_2,
-    TYPE_4D_3_3
+    TYPE_4D_3_3,
+    TYPE_HI_RES_800,
+    TYPE_HI_RES_5000
 };
 
 typedef NS_ENUM(NSInteger,ImageFormat) {
@@ -69,4 +71,5 @@ typedef NS_ENUM(NSInteger,ProgressiveType){
 
 typedef void(^Successed)(NSObject *object);
 typedef void(^Failed)(NSObject *object ,NSError *error);
+#define kRequestTimeout 30
 #endif /* RunimgDefine_h */
