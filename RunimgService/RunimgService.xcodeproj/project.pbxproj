@@ -19,6 +19,8 @@
 		663511391CDA264300F0318F /* RunimgService.m in Sources */ = {isa = PBXBuildFile; fileRef = 663511311CDA264300F0318F /* RunimgService.m */; };
 		6635113A1CDA264300F0318F /* UpdateStanza.m in Sources */ = {isa = PBXBuildFile; fileRef = 663511331CDA264300F0318F /* UpdateStanza.m */; };
 		6635113B1CDA264300F0318F /* UrlCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 663511351CDA264300F0318F /* UrlCreator.m */; };
+		66C8B9531CEB489600FEBEFC /* UrlCreatorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 66C8B9521CEB489600FEBEFC /* UrlCreatorTest.m */; };
+		66C8B9551CEB4CA200FEBEFC /* RunimgServiceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 66C8B9541CEB4CA200FEBEFC /* RunimgServiceTest.m */; };
 		66E2B7901CE334AB00BF243E /* RunimgServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E2B78F1CE334AB00BF243E /* RunimgServiceTests.m */; };
 		66E2B7981CE334D300BF243E /* ImageOperatorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E2B7971CE334D300BF243E /* ImageOperatorTest.m */; };
 /* End PBXBuildFile section */
@@ -57,6 +59,8 @@
 		663511331CDA264300F0318F /* UpdateStanza.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateStanza.m; sourceTree = "<group>"; };
 		663511341CDA264300F0318F /* UrlCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UrlCreator.h; sourceTree = "<group>"; };
 		663511351CDA264300F0318F /* UrlCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UrlCreator.m; sourceTree = "<group>"; };
+		66C8B9521CEB489600FEBEFC /* UrlCreatorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UrlCreatorTest.m; sourceTree = "<group>"; };
+		66C8B9541CEB4CA200FEBEFC /* RunimgServiceTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunimgServiceTest.m; sourceTree = "<group>"; };
 		66E2B78D1CE334AB00BF243E /* RunimgServiceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RunimgServiceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		66E2B78F1CE334AB00BF243E /* RunimgServiceTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RunimgServiceTests.m; sourceTree = "<group>"; };
 		66E2B7911CE334AB00BF243E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -150,6 +154,8 @@
 				66E2B78F1CE334AB00BF243E /* RunimgServiceTests.m */,
 				66E2B7911CE334AB00BF243E /* Info.plist */,
 				66E2B7971CE334D300BF243E /* ImageOperatorTest.m */,
+				66C8B9521CEB489600FEBEFC /* UrlCreatorTest.m */,
+				66C8B9541CEB4CA200FEBEFC /* RunimgServiceTest.m */,
 			);
 			path = RunimgServiceTests;
 			sourceTree = "<group>";
@@ -271,6 +277,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				66E2B7901CE334AB00BF243E /* RunimgServiceTests.m in Sources */,
+				66C8B9551CEB4CA200FEBEFC /* RunimgServiceTest.m in Sources */,
+				66C8B9531CEB489600FEBEFC /* UrlCreatorTest.m in Sources */,
 				66E2B7981CE334D300BF243E /* ImageOperatorTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -461,6 +469,7 @@
 				66E2B7951CE334AB00BF243E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

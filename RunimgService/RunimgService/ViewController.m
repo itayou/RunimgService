@@ -49,7 +49,9 @@
 
 - (void)clickRefreshButton2 :(UIButton *)btn {
     ImageOperator *imgOpt = [[ImageOperator alloc] init];
-    [imgOpt setImageZoomWidth:1024 height:768 process:YES];
+    [imgOpt setImageZoomWidth:self.view.frame.size.width height:self.view.frame.size.height process:YES];
+    [imgOpt setJPGImageRelationQuality:10];
+    [imgOpt setImageFormat:FORMAT_SRC];
     NSLog(@"%@",[imgOpt toString]);
     UrlCreator *urlCreator = [[UrlCreator alloc] initWithTokenId:@"123456789ABCDEF0" tokenKey:@"0123456789ABCDEF" imageType:TYPE_4D expired:3600 imageOperator:imgOpt];
     [[RunimgService sharedInstance] getImageUrlWithBaseUrl:BASE_URL urlCreator:urlCreator successed:^(NSObject *object) {
