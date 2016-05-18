@@ -16,7 +16,8 @@
  * URL编码后的字符串
  */
 - (NSString *)urlEncode {
-    NSString * encodedString = [self stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSCharacterSet *set = [NSCharacterSet characterSetWithCharactersInString:@"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_.~"];
+    NSString * encodedString = [self stringByAddingPercentEncodingWithAllowedCharacters:set];
     return encodedString;
 }
 
@@ -25,7 +26,7 @@
  * @return URL解码的字符串
  */
 - (NSString *)urlDecode {
-    NSString *decodedString = [self stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *decodedString = [self stringByRemovingPercentEncoding];
     return decodedString;
 }
 

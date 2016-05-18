@@ -10,7 +10,10 @@
 #import "RunimgService.h"
 
 @interface RunimgServiceTest : XCTestCase
-
+@property(nonatomic,strong)NSString *tokenId;
+@property(nonatomic,strong)NSString *tokenKey;
+@property(nonatomic,strong)ImageOperator *imageOperator;
+@property(nonatomic,assign)NSInteger expired;
 @end
 
 @implementation RunimgServiceTest
@@ -18,6 +21,10 @@
 - (void)setUp {
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
+    self.tokenId = @"123456789ABCDEF0";
+    self.tokenKey = @"0123456789ABCDEF";
+    self.expired = 3600;
+    self.imageOperator = [[ImageOperator alloc] init];
 }
 
 - (void)tearDown {
@@ -38,12 +45,11 @@
 }
 
 - (void)test001GetImageUrl {
-    ImageOperator *imgOpt = [[ImageOperator alloc] init];
-    [imgOpt setImageZoomWidth:100 height:100 process:YES];
-    [imgOpt setJPGImageRelationQuality:10];
-    [imgOpt setImageFormat:FORMAT_SRC];
-    NSLog(@"%@",[imgOpt toString]);
-    UrlCreator *urlCreator = [[UrlCreator alloc] initWithTokenId:@"123456789ABCDEF0" tokenKey:@"0123456789ABCDEF" imageType:TYPE_4D expired:3600 imageOperator:imgOpt];
+    [self.imageOperator setImageZoomWidth:500 height:500 process:YES];
+    [self.imageOperator setImageZoom:50];
+    [self.imageOperator setImageRotation:30];
+    [self.imageOperator setImageFormat:FORMAT_PNG];
+    UrlCreator *urlCreator = [[UrlCreator alloc] initWithTokenId:self.tokenId tokenKey:self.tokenKey imageType:TYPE_4D expired:self.expired imageOperator:self.imageOperator];
     [[RunimgService sharedInstance] getImageUrlWithBaseUrl:BASE_URL urlCreator:urlCreator successed:^(NSObject *object) {
         XCTAssertNotNil(object);
     } failed:^(NSObject *object, NSError *error) {
@@ -53,12 +59,11 @@
 }
 
 - (void)test002GetImageByUrl {
-    ImageOperator *imgOpt = [[ImageOperator alloc] init];
-    [imgOpt setImageZoomWidth:100 height:100 process:YES];
-    [imgOpt setJPGImageRelationQuality:10];
-    [imgOpt setImageFormat:FORMAT_SRC];
-    NSLog(@"%@",[imgOpt toString]);
-    UrlCreator *urlCreator = [[UrlCreator alloc] initWithTokenId:@"123456789ABCDEF0" tokenKey:@"0123456789ABCDF" imageType:TYPE_4D expired:3600 imageOperator:imgOpt];
+    [self.imageOperator setImageZoomWidth:500 height:500 process:YES];
+    [self.imageOperator setImageZoom:50];
+    [self.imageOperator setImageRotation:30];
+    [self.imageOperator setImageFormat:FORMAT_PNG];
+    UrlCreator *urlCreator = [[UrlCreator alloc] initWithTokenId:self.tokenId tokenKey:self.tokenKey imageType:TYPE_4D expired:self.expired imageOperator:self.imageOperator];
     [[RunimgService sharedInstance] getImageUrlWithBaseUrl:BASE_URL urlCreator:urlCreator successed:^(NSObject *object) {
         XCTAssertNotNil(object);
         UpdateStanza *updateStanza = (UpdateStanza *)object;

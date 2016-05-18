@@ -9,7 +9,6 @@
 #import <XCTest/XCTest.h>
 
 @interface RunimgServiceTests : XCTestCase
-
 @end
 
 @implementation RunimgServiceTests

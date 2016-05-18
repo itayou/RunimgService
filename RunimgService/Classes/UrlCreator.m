@@ -8,15 +8,23 @@
 
 #import "UrlCreator.h"
 
+const NSString *kRunimgExpired   = @"expired";
+const NSString *kRunimgImgOption = @"img_opt";
+const NSString *kRunimgImgType   = @"img_type";
+const NSString *kRunimgRecInv    = @"rec_inv";
+const NSString *kRunimgSignature = @"signature";
+const NSString *kRunimgTimstamp  = @"timestamp";
+const NSString *kRunimgTokenId   = @"token_id";
+const NSString *kRunimgVersion   = @"version";
+const NSString *kRunimgRIStart   = @"st";
+const NSString *kRunimgRIEnd     = @"et";
 
 @interface UrlCreator ()
 @property(nonatomic,strong)NSString *tokenId;
 @property(nonatomic,strong)NSString *tokenKey;
-@property(nonatomic,strong)NSString *img_type;
 @property(nonatomic,assign)ImageType imageType;
 @property(nonatomic,assign)NSInteger expired;
-@property(nonatomic,strong)NSString *timestamp;
-@property(nonatomic,strong)NSString *img_opt;
+@property(nonatomic,assign)NSInteger timestamp;
 @property(nonatomic,strong)ImageOperator *imageOperator;
 @property(nonatomic,strong)NSString *rec_inv;
 @property(nonatomic,strong)NSNumber *startTime;
@@ -45,9 +53,7 @@
         self.imageType = imageType;
         self.expired = expired <= 0?3600:expired;
         self.imageOperator = imageOperator;
-        self.img_opt = [self.imageOperator toString];
-        self.img_type = [self conversionImageType];
-        self.timestamp = [NSString stringWithFormat:@"%.0f",[[NSDate date] timeIntervalSince1970]];
+        self.timestamp = [[NSDate date] timeIntervalSince1970];//1453022611
     }
     return self;
 }
@@ -57,20 +63,27 @@
  * 签名获得请求的URL地址
  */
 - (NSString *)toUrlString {
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    parameters[kRunimgExpired]   = [NSString stringWithFormat:@"%ld",_expired];
+    parameters[kRunimgImgOption] = [[_imageOperator toString] base64Encode];//[@"{\"h\":250,\"w\":250}" base64Encode];//
+    parameters[kRunimgImgType]   = [self conversionImageType];
+    parameters[kRunimgRecInv]    = [_rec_inv base64Encode];
+    parameters[kRunimgTimstamp]  = [NSString stringWithFormat:@"%ld",_timestamp];
+    parameters[kRunimgTokenId]   = _tokenId;
+    parameters[kRunimgVersion]   = @"1.0";
+    parameters[kRunimgSignature] = [self signature:[parameters copy]];
+    NSArray *allKey = [[parameters allKeys] sortedArrayUsingSelector:@selector(compare:)];
     NSMutableString *content = [[NSMutableString alloc] init];
-    [content appendFormat:@"%@=%@",@"expired",@(_expired)];
-    if(_img_opt) {
-        [content appendFormat:@"&%@=%@",@"img_opt",[[_img_opt base64Encode] urlEncode]];
+    for(NSString *key in allKey) {
+        NSString *value = parameters[key];
+        if(value) {
+            [content appendFormat:@"%@=%@&",key,[value urlEncode]];
+        }
     }
-    [content appendFormat:@"&%@=%@",@"img_type",[_img_type urlEncode]];
-    if(_rec_inv) {
-         [content appendFormat:@"&%@=%@",@"rec_inv",[[_rec_inv base64Encode] urlEncode]];
+    if(content.length > 0) {
+        [content deleteCharactersInRange:NSMakeRange(content.length-1, 1)];
     }
-    [content appendFormat:@"&%@=%@",@"signature",[[self signature] urlEncode]];
-    [content appendFormat:@"&%@=%@",@"timestamp",[_timestamp urlEncode]];
-    [content appendFormat:@"&%@=%@",@"token_id", [_tokenId urlEncode]];
-    [content appendFormat:@"&%@=%@",@"version",[@"1.0" urlEncode]];
-    return [content copy];
+    return content;
 }
 
 /*
@@ -84,19 +97,18 @@
     return YES;
 }
 
-- (NSString *)signature {
+- (NSString *)signature:(NSDictionary *)dic {
+    NSArray *allKey = [[dic allKeys] sortedArrayUsingSelector:@selector(compare:)];
     NSMutableString *content = [[NSMutableString alloc] init];
-    [content appendFormat:@"%@=%@",@"expired",@(_expired)];
-    if(_img_opt) {
-        [content appendFormat:@"&%@=%@",@"img_opt",[_img_opt base64Encode]];
+    for(NSString *key in allKey) {
+        NSString *value = dic[key];
+        if(value) {
+            [content appendFormat:@"%@=%@&",key,value];
+        }
     }
-    [content appendFormat:@"&%@=%@",@"img_type",_img_type];
-    if(_rec_inv) {
-        [content appendFormat:@"&%@=%@",@"rec_inv",[_rec_inv base64Encode]];
+    if(content.length > 0) {
+        [content deleteCharactersInRange:NSMakeRange(content.length-1, 1)];
     }
-    [content appendFormat:@"&%@=%@",@"timestamp",_timestamp];
-    [content appendFormat:@"&%@=%@",@"token_id",_tokenId];
-    [content appendFormat:@"&%@=%@",@"version",@"1.0"];
     NSString *signature = [content HMAC_SHA1WithKey:_tokenKey];
     return signature;
 }

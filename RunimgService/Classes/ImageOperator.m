@@ -60,14 +60,14 @@
     _q = nil;
     _Q = nil;
     _pr = nil;
-    _format = @"jpg";
+    _format = nil;
 }
 
 /*
  * 获取图片处理的字符串
  */
 - (NSString *)toString {
-    //获得
+    //组装json字符串
     NSMutableString *parament = [[NSMutableString alloc] initWithCapacity:1];
     unsigned int count;
     objc_property_t *list = class_copyPropertyList([self class], &count);

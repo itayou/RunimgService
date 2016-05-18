@@ -69,6 +69,7 @@ typedef NS_ENUM(NSInteger,ProgressiveType){
     DISABLE_PROGRESSVIE //渐进显示的JPG格式
 };
 
+
 typedef void(^Successed)(NSObject *object);
 typedef void(^Failed)(NSObject *object ,NSError *error);
 #define kRequestTimeout 30

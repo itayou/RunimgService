@@ -16,7 +16,7 @@
     if(self) {
         self.date = [NSString stringWithFormat:@"%@",dic[@"date"]];
         self.timestamp = [NSString stringWithFormat:@"%@",dic[@"timestamp"]];
-        self.url = [[NSString stringWithFormat:@"%@",dic[@"url"]] urlDecode];
+        self.url = [NSString stringWithFormat:@"%@",dic[@"url"]];
     }
     return self;
 }

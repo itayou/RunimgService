@@ -10,7 +10,10 @@
 #import "ImageOperator.h"
 #import "UrlCreator.h"
 @interface UrlCreatorTest : XCTestCase
-
+@property(nonatomic,strong)NSString *tokenId;
+@property(nonatomic,strong)NSString *tokenKey;
+@property(nonatomic,strong)ImageOperator *imageOperator;
+@property(nonatomic,assign)NSInteger expired;
 @end
 
 @implementation UrlCreatorTest
@@ -18,6 +21,10 @@
 - (void)setUp {
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
+    self.tokenId = @"123456789ABCDEF0";
+    self.tokenKey = @"0123456789ABCDEF";
+    self.expired = 3600;
+    self.imageOperator = [[ImageOperator alloc] init];
 }
 
 - (void)tearDown {
@@ -38,21 +45,21 @@
 }
 
 - (void)test001ToUrlString {
-    ImageOperator *imageOpertort = [[ImageOperator alloc] init];
-    [imageOpertort setImageZoomWidth:100 height:100 process:YES];
-    UrlCreator *urlCreator = [[UrlCreator alloc] initWithTokenId:@"123456789ABCDEF0" tokenKey:@"0123456789ABCDEF" imageType:TYPE_4D expired:3600 imageOperator:imageOpertort];
-    NSLog(@"%@",[urlCreator toUrlString]);
+    [self.imageOperator setImageZoomWidth:100 height:100 process:YES];
+    UrlCreator *urlCreator = [[UrlCreator alloc] initWithTokenId:self.tokenId tokenKey:self.tokenKey imageType:TYPE_4D expired:self.expired imageOperator:self.imageOperator];
+    XCTAssertNotNil([urlCreator toUrlString]);
+    
+    [self.imageOperator setImageClipperChunk:100 direction:CLIPPER_X index:3];
+    urlCreator = [[UrlCreator alloc] initWithTokenId:self.tokenId tokenKey:self.tokenKey imageType:TYPE_4D expired:self.expired imageOperator:self.imageOperator];
     XCTAssertNotNil([urlCreator toUrlString]);
 }
 
 - (void)test002RecordInterval {
-    ImageOperator *imageOpertort = [[ImageOperator alloc] init];
-    [imageOpertort setImageZoomWidth:100 height:100 process:YES];
-    UrlCreator *urlCreator = [[UrlCreator alloc] initWithTokenId:@"123456789ABCDEF0" tokenKey:@"0123456789ABCDEF" imageType:TYPE_4D expired:3600 imageOperator:imageOpertort];
+    [self.imageOperator setImageZoomWidth:100 height:100 process:YES];
+    UrlCreator *urlCreator = [[UrlCreator alloc] initWithTokenId:self.tokenId tokenKey:self.tokenKey imageType:TYPE_4D expired:self.expired imageOperator:self.imageOperator];
     NSDate *currentDate = [NSDate date];
     long start = [currentDate timeIntervalSince1970];
     [urlCreator setRecordIntervalStartTime:start endTime:0];
-    NSLog(@"%@",[urlCreator toUrlString]);
     XCTAssertNotNil([urlCreator toUrlString]);
 }
 
