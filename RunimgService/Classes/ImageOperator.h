@@ -11,14 +11,20 @@
 @interface ImageOperator : NSObject
 
 /*
+ * 重置设置项
+ */
+- (void)reset;
+
+/*
  * 获取图片处理的字符串
+ * @return 返回一个图片出的的json字符串
  */
 - (NSString *)toString;
 
 /*
  * 缩放
- * @width   图片宽度.  [1,4096]
- * @height  图片高度.  [1,4096]
+ * @width   图片宽度.  [1,4096] 当为0时设置宽度无效
+ * @height  图片高度.  [1,4096] 当为0时设置高度无效
  * @process 是否处理图片. [0,1];
  */
 - (BOOL)setImageZoomWidth:(int)width height:(int)height process:(BOOL)process;
@@ -97,8 +103,7 @@
 - (BOOL)setJPGImageAbsoluteQuality:(int)quality;
 
 /*
- * JPG图片呈现方式
- * 参数[pr]:[0,1]
+ * JPG图片呈现方式 参数[pr]:[0,1]
  */
 - (BOOL)setJPGProgressive:(ProgressiveType)progressive;
 
@@ -107,8 +112,4 @@
  */
 - (BOOL)setImageFormat:(ImageFormat)foramt;
 
-/*
- * 重置设置项
- */
-- (void)reset;
 @end

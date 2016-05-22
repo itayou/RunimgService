@@ -22,6 +22,24 @@
     return instance;
 }
 
+/* 同步
+ * 通过图片操作参数获取图片地址
+ * @urlCreator 请求的UrlCreator对象
+ * @return 返回UpdateStanza对象
+ */
+- (UpdateStanza *)getImageUrlBase:(NSString *)baseUrl
+                       urlCreator:(UrlCreator *)urlCreator {
+    NSString *url = [NSString stringWithFormat:@"%@%@",baseUrl,[urlCreator toUrlString]];
+    NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:url]];
+    NSError *jsonError = nil;
+    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonError];
+    if(jsonError == nil && dic) {
+        UpdateStanza *updateStanza = [[UpdateStanza alloc] initWithDic:dic];
+        return updateStanza;
+    }
+    return nil;
+}
+
 /*
  * 通过图片操作参数获取图片地址
  * @urlCreator 请求的UrlCreator对象
@@ -30,7 +48,6 @@
  */
 - (void)getImageUrlWithBaseUrl:(NSString *)baseUrl urlCreator:(UrlCreator *)urlCreator successed:(Successed)successed failed:(Failed)failed {
     NSString *url = [NSString stringWithFormat:@"%@%@",baseUrl,[urlCreator toUrlString]];
-    NSLog(@"\nurl\n%@",url);
     NSURLRequest  *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:kRequestTimeout];
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
@@ -38,8 +55,6 @@
         if(data){
             NSError *jsonError = nil;
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonError];
-            NSString *result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            NSLog(@"\nresult\n%@",result);
             if(dic) {
                 NSInteger state = [dic[@"status"] integerValue];
                 if(state == 200) {
@@ -47,15 +62,12 @@
                     successed(updateStanza);
                 }else {
                     NSError *responseError = [NSError errorWithDomain:@"response error data" code:601 userInfo:nil];
-                    NSLog(@"\nresponse error\n%@,%@",responseError,dic);
-                    failed(dic,error);
+                    failed(dic,responseError);
                 }
             }else {
-                NSLog(@"\njson error\n%@,%@",jsonError,dic);
                 failed(data,jsonError);
             }
         }else {
-            NSLog(@"\nrequest error:\n%@",error);
             failed(data,error);
         }
     }];
@@ -68,7 +80,6 @@
  * @failed 返回一个错误信息
  */
 - (void)getImageByUrl:(NSString *)url successed:(Successed)successed failed:(Failed)failed {
-    NSLog(@"\nimage url\n%@",url);
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:60];
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
@@ -80,11 +91,9 @@
             }else {
                 NSString *errorString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                 NSError *imageError = [NSError errorWithDomain:errorString code:701 userInfo:nil];
-                NSLog(@"\nimage error\n%@",imageError);
                 failed(data,imageError);
             }
         }else {
-            NSLog(@"\nrequest image error\n%@",error);
             failed(data,error);
         }
     }];
