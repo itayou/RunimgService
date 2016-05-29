@@ -8,6 +8,8 @@
 
 #import "ViewController.h"
 #import "RunimgService.h"
+#define kTokenId  @"9pzBmw38Slfqd3TG"
+#define kTokenKey @"6nw00oN6c9u8OiLt"
 
 @interface ViewController ()
 @property(nonatomic,strong)UIWebView *webView;
@@ -124,7 +126,9 @@
 - (void)testUrlRequest {
     for(NSDictionary *imgOptDic in self.imageOpts) {
         ImageOperator *opt = imgOptDic[@"imgOpt"];
-        UrlCreator *urlCreator = [[UrlCreator alloc] initWithTokenId:@"123456789ABCDEF0" tokenKey:@"0123456789ABCDEF" imageType:TYPE_4D expired:3600 imageOperator:opt];
+        UrlCreator *urlCreator = [[UrlCreator alloc] initWithTokenId:kTokenId tokenKey:kTokenKey imageType:TYPE_4D expired:3600 imageOperator:opt];
+        //5月20日一天的数据
+        [urlCreator setRecordIntervalStartTime:1463673600 endTime:1463759999];
         UpdateStanza *updateStanza = [[RunimgService sharedInstance] getImageUrlBase:BASE_URL urlCreator:urlCreator];
         if(updateStanza.records.count > 0) {
             Record *record = [updateStanza.records objectAtIndex:0];
@@ -142,7 +146,7 @@
         NSString *url = dic[@"url"];
         if(url) {
             [htmls appendFormat:@"<br><br><font size=\"5\" color=\"green\">%@</font><br>",dic[@"method"]];
-            [htmls appendFormat:@"<img src=\"%@\"><br><br>",url];
+            [htmls appendFormat:@"<img src=\"%@\"><br>",url];
         }else {
             [htmls appendFormat:@"<br><br><font size=\"5\" color=\"red\">%@</font><br>",dic[@"method"]];
             [htmls appendFormat:@"image error:%@<br><br>",dic[@"error"]];
@@ -153,6 +157,7 @@
     NSError *error = nil;
     //写入文件
     [htmls writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
+    NSLog(@"---loading---");
     [self.webView loadHTMLString:htmls baseURL:nil];
 }
 

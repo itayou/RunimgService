@@ -65,7 +65,7 @@ const NSString *kRunimgRIEnd     = @"et";
 - (NSString *)toUrlString {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     parameters[kRunimgExpired]   = [NSString stringWithFormat:@"%ld",_expired];
-    parameters[kRunimgImgOption] = [[_imageOperator toString] base64Encode];//[@"{\"h\":250,\"w\":250}" base64Encode];//
+    parameters[kRunimgImgOption] = [[_imageOperator toString] base64Encode];
     parameters[kRunimgImgType]   = [self conversionImageType];
     parameters[kRunimgRecInv]    = [_rec_inv base64Encode];
     parameters[kRunimgTimstamp]  = [NSString stringWithFormat:@"%ld",_timestamp];
@@ -93,7 +93,7 @@ const NSString *kRunimgRIEnd     = @"et";
 - (BOOL)setRecordIntervalStartTime:(long)startTime endTime:(long)endTime {
     _startTime = @(startTime);
     _endTime = @(endTime);
-    _rec_inv = [NSString stringWithFormat:@"{\"st\":\"%@\",\"et\":\"%@\"}",_startTime,_endTime];
+    _rec_inv = [NSString stringWithFormat:@"{\"st\":%@,\"et\":%@}",_startTime,_endTime];
     return YES;
 }
 
